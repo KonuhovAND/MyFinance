@@ -32,7 +32,6 @@ function Panel({url_categories,category_type}){
         .then((d) => {
             setCategories(d.objects)
             setCategory(d.objects[0].resource_uri)
-            // setText(d.objects[0].text)
     })
     };
     useEffect(() => {loadCategories();},[]);
