@@ -4,3 +4,12 @@ django-cors-headers==4.9.0
 djangorestframework==3.17.1
 sqlparse==0.5.5
 django-tastypie
+asgiref==3.12.1
+django==6.0.7
+django-cors-headers==4.9.0
+django-tastypie==0.15.1
+djangorestframework==3.17.1
+python-dateutil==2.9.0.post0
+python-mimeparse==2.0.0
+six==1.17.0
+sqlparse==0.5.5
