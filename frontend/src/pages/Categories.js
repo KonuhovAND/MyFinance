@@ -22,32 +22,32 @@ import { useState, useEffect } from "react";
 //     }
 //   ]
 
-function Category({url_get_categories,url_post_categories,category_type}){
+function Panel({url_categories,category_type}){
     const [categories,setCategories] = useState([])
     const [text,setText] = useState('')
     const [category,setCategory] = useState('')
 
-    let url_ = 'http://localhost:8000/app/api/categories'
-    let url_POST = 'http://localhost:8000/app/api/recieve_categories'
+    // let url_ = 'http://localhost:8000/app/api/categories'
+    // let url_POST = 'http://localhost:8000/app/api/recieve_categories'
 
     let loadCategories = () =>{
-        fetch(url_get_categories)
+        fetch(url_categories)
         .then((r) => r.json())
         .then((d) => {
             setCategories(d.objects)
-            setCategory(d.objects[-1].resource_uri)
+            setCategory(d.objects[0].resource_uri)
     })
     };
     useEffect(() => {loadCategories();},[]);
 
     const handleRequest =(e)=> {
-        e.preventDefault();
+        // e.preventDefault();
         let data = {
+            resource_uri:category,
             text:text,
-            type:category_type,
         }
         
-        fetch(url_post_categories,{
+        fetch(url_categories,{
             method: 'POST',
             headers:{'Content-Type':'application/json'},
             body: JSON.stringify(data)
@@ -58,20 +58,28 @@ function Category({url_get_categories,url_post_categories,category_type}){
         })
 
     } 
+
     return(
         <>
-        <div className="catagories" >
+        <div className="categories" >
             <p className="catagories-text">Available catagories to {category_type}</p>
             {categories.map((item) => (
                 <p key ={item.resource_uri}className="catagories-text">{item.text}</p>
             ))}
             <form className="fancy-form" onSubmit={(e) => handleRequest(e)}>
-                <input className="form-input" type="text" value={category} onChange={(e) => {setCategory(e.target.value)}} />
+                <input className="form-input" type="text" value={text} onChange={(e) => {setText(e.target.value)}} />
                 <button className='form-button'  type="submit">Save</button>
             </form>
         </div>
         </>
     );
 }
-
-export default Category({url_get_categories:'http://localhost:8000/fake_api/category_income/' ,url_post_categories='http://localhost:8000/fake_api/category_income/',category_type='income' });
+function Categories(){
+  return(
+  <>
+  <Panel url_categories ='http://localhost:8000/fake_api/category_income/'  category_type='income' />
+  <Panel url_categories ='http://localhost:8000/fake_api/category_spend/'  category_type='spendings' />
+  </>
+  );
+}
+export default Categories;

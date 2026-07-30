@@ -42,10 +42,10 @@ body {
 }
 
 
-.catagories{
+.categories{
     background-color: var(--dark-background-color);
 }
-.catagories-text{
+.categories-text{
     font-size: 1.1rem;
 }
 
@@ -106,7 +106,7 @@ body {
 }
 
 
-.catagories{
+.categories{
     margin: 20px auto;
     border-radius: 8px;
     max-width: 400px;

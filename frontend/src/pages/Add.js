@@ -33,7 +33,10 @@ function Add_operation({url_get_categories_,url_post_operation_,operation_name})
     useEffect(() =>{
         fetch(url_get_categories_)
         .then((r) => r.json())
-        .then((d) => {setCategories(d.objects);console.log(d,d.objects);setCategory(d.objects[0].resource_uri);})
+        .then((d) => {
+         setCategories(d.objects);
+         console.log(d,d.objects);
+         setCategory(d.objects[0].resource_uri);})
     },[]);
     const handleRequest = (e) =>{
         e.preventDefault()
@@ -53,8 +56,8 @@ function Add_operation({url_get_categories_,url_post_operation_,operation_name})
     }
     return(
         <>
-        <div className="catagories">
-            <p className="catagories-text">Available catagories to {operation_name}</p>
+        <div className="categories">
+            <p className="categories-text">Available catagories to {operation_name}</p>
             {categories.map((item) => (
                 <p key ={item.id}className="catagories-text">{item.text}</p>
             ))}

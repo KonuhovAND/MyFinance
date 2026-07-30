@@ -4,7 +4,7 @@ import Add from './pages/Add'
 import Delete from './pages/Delete'
 import Home from './pages/Home'
 import Stats from './pages/Statictics'
-import Catagory from './pages/Categories';
+import Categories from './pages/Categories';
 
 
 function App() {
@@ -15,14 +15,14 @@ function App() {
     <a className='navigation_bar--element' href='/add'>Add</a>
     <a className='navigation_bar--element' href='/delete'>Delete</a>
     <a className='navigation_bar--element' href='/stats'>Statistics</a>
-    <a className='navigation_bar--element' href='/categories'>Catagories</a>
+    <a className='navigation_bar--element' href='/categories'>Categories</a>
    </nav> 
     <Routes>
       <Route path="/" element={<Home />} />
         <Route path="/add" element={<Add />} />
         <Route path="/delete" element={<Delete />} />
         <Route path="/stats" element={<Stats />} />
-        <Route path="/categories" element={<Catagory />} />
+        <Route path="/categories" element={<Categories />} />
     </Routes>
    </BrowserRouter>
   );
