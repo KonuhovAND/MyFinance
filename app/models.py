@@ -31,3 +31,5 @@ class Income(models.Model):
 
     def __str__(self):
         return self.text +f' amount - {self.amount} catagory - {self.category}'
+
+        
