@@ -51,6 +51,7 @@ function Panel({url_categories,category_type}){
             text:text,
         }
         
+
         fetch('http://localhost:8000' + category,{
             method: 'PATCH',
             headers:{'Content-Type':'application/json'},
