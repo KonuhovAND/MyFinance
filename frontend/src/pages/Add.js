@@ -1,5 +1,6 @@
  import { useState, useEffect } from "react";
 import { data } from "react-router-dom";
+
 //TODO: передаелть на сбор данных который мы используем
 // {
 //   "meta": {
@@ -29,7 +30,6 @@ function Add_operation({url_get_categories_,url_post_operation_,operation_name})
 
 
 
-
     useEffect(() =>{
         fetch(url_get_categories_)
         .then((r) => r.json())
@@ -53,6 +53,7 @@ function Add_operation({url_get_categories_,url_post_operation_,operation_name})
             headers:{'Content-Type':'application/json'},
             body: JSON.stringify(data)
         })
+        window.location.reload();
     }
     return(
         <>
@@ -67,7 +68,7 @@ function Add_operation({url_get_categories_,url_post_operation_,operation_name})
             <input className="form-input" type="number" value={amount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)} />
             <input className="form-input" placeholder="Enter text to spending" type='text' name='text' onChange={(e) => setText(e.target.value)}/>
 
-            <input type="date" id="date" name="date" onChange={(e) => setDate(e.target.value)}/>
+            <input type="date" id="date" name="date" value={date} required onChange={(e) => setDate(e.target.value)}/>
 
             <select className="form-select" value={category} onChange={(e) =>setCategory(e.target.value)}>{categories.map((cat) => (<option value={cat.resource_uri} key={cat.id}>{cat.text}</option>))}</select>
 

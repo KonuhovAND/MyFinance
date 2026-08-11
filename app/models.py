@@ -17,7 +17,7 @@ class Spending(models.Model):
     text = models.TextField(max_length=20)
     amount = models.FloatField()
     category = models.ForeignKey(Category_spend,on_delete=models.CASCADE)
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateField(default=timezone.now)
 
     def __str__(self):
         return self.text +f' amount - {self.amount} catagory - {self.category}'
@@ -27,7 +27,7 @@ class Income(models.Model):
     text = models.TextField(max_length=20)
     amount = models.FloatField()
     category = models.ForeignKey(Category_income,on_delete=models.CASCADE)
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateField(default=timezone.now)
 
     def __str__(self):
         return self.text +f' amount - {self.amount} catagory - {self.category}'
