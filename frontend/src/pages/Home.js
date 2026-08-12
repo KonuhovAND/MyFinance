@@ -27,11 +27,32 @@ function Show({get_url_act,get_url_cat,name}){
   console.log(actions)
   return(
   <>
-    <div>
-    {actions.map((item)=>(
-    <p className='line' key={item.resource_uri}>CREATED_AT: {item.created_at.toString().split('T')[0]} AMOUNT: {item.amount} CATEGORY: {categories[item.category]} TEXT: {item.text} ID: {item.id}</p>
-    ))}
-    </div>
+    <table className='mytable'>
+        <thead>
+          <tr>
+            <th colSpan={5} className='table-name-title'>Last 100 {name}</th>
+          </tr>
+          <tr>
+            <th> CREATED_AT</th>
+            <th> AMOUNT</th>
+            <th> CATEGORY</th>
+            <th> TEXT</th>
+            <th>ID</th>
+          </tr>
+        </thead>
+        <tbody>
+        {actions.map((item,index) =>(
+        <tr key={item.id} className = {index % 2 ===1? 'table-row-1' : 'table-row-0'}>
+        <td>{item.created_at.toString().split('T')[0]}</td>
+        <td>{item.amount}</td>
+        <td>{categories[item.category]}</td>
+        <td>{item.text}</td>
+        <td>{item.id}</td>
+        </tr>
+        ))}
+
+        </tbody>
+    </table>
   </>
   );
 }
@@ -40,6 +61,7 @@ function Home(){
   return(
   <>
       <Show get_url_act='http://localhost:8000/fake_api/spending/' get_url_cat='http://localhost:8000/fake_api/category_spend/' name = 'spending' />
+      <Show get_url_act='http://localhost:8000/fake_api/income/' get_url_cat='http://localhost:8000/fake_api/category_income/' name = 'income' />
   </>
   );
 }

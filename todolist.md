@@ -3,5 +3,6 @@ what need to do:
 - add delete pagge 
 - add statistix page 
 - add button to download hole db/json file 
+- compile it like app, to run one line and run it 
 
 

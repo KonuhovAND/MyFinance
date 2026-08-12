@@ -1,7 +1,6 @@
  import { useState, useEffect } from "react";
 import { data } from "react-router-dom";
 
-//TODO: передаелть на сбор данных который мы используем
 // {
 //   "meta": {
 //     "limit": 20,
@@ -40,20 +39,21 @@ function Add_operation({url_get_categories_,url_post_operation_,operation_name})
     },[]);
     const handleRequest = (e) =>{
         e.preventDefault()
-        const data = {
-            amount: amount,
-            category: category,
-            text: text,
-            created_at:date,
-        }
-
 
         fetch(url_post_operation_,{
             method: 'POST',
             headers:{'Content-Type':'application/json'},
-            body: JSON.stringify(data)
-        })
-        window.location.reload();
+            body: JSON.stringify({
+              amount: amount,
+              category: category,
+              text: text,
+              created_at:date,
+        }
+)
+        }).then((r)=>{
+          if (r.ok){window.location.reload()}
+
+       }).catch(error=>console.error('Error:',error));
     }
     return(
         <>

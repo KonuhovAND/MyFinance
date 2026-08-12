@@ -59,7 +59,7 @@ function Panel({url_categories,category_type}){
         .then((res) =>{
             loadCategories();
             setCategory('');
-        })
+        }).then(window.location.reload())
 
     } 
     return(
@@ -81,7 +81,7 @@ function Panel({url_categories,category_type}){
 }
 
 
- function Delete(){
+ function Edit(){
     return(
     <>    
     <Panel url_categories ='http://localhost:8000/fake_api/category_spend/'  category_type='spendings' />
@@ -90,4 +90,4 @@ function Panel({url_categories,category_type}){
 
     );
 }
-export default Delete;
+export default Edit;

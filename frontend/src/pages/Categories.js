@@ -1,8 +1,4 @@
 import { useState, useEffect } from "react";
-//TODO:переделать fetch на то что мы используем
-// ну короче, нужно управлять категориями, добавлять это точно
-// но удалять хз, если я чето добавил, скорее всего легче просто удалить трату из бд
-// а тут только работать с категориями которые есть(добавлять в разные короче)
 // {
 //   "meta": {
 //     "limit": 20,
@@ -27,8 +23,6 @@ function Panel({url_categories,category_type}){
     const [text,setText] = useState('')
     const [category,setCategory] = useState('')
 
-    // let url_ = 'http://localhost:8000/app/api/categories'
-    // let url_POST = 'http://localhost:8000/app/api/recieve_categories'
 
     let loadCategories = () =>{
         fetch(url_categories)
@@ -41,21 +35,22 @@ function Panel({url_categories,category_type}){
     useEffect(() => {loadCategories();},[]);
 
     const handleRequest =(e)=> {
-        // e.preventDefault();
-        let data = {
-            resource_uri:category,
-            text:text,
-        }
-        
+        e.preventDefault();
         fetch(url_categories,{
             method: 'POST',
             headers:{'Content-Type':'application/json'},
-            body: JSON.stringify(data)
+            body: JSON.stringify({
+            resource_uri:category,
+            text:text,
+        }
+)
         })
         .then((res) =>{
             loadCategories();
             setCategory('');
-        })
+        }).then((res) =>{
+            if (res.ok){window.location.reload()}
+      }).catch(error => console.error("Error:",error) )
 
     } 
 
