@@ -58,12 +58,7 @@ function Add_operation({url_get_categories_,url_post_operation_,operation_name})
     return(
         <>
         <div className="categories">
-            <p className="categories-text">Available catagories to {operation_name}</p>
-            {categories.map((item) => (
-                <p key ={item.id}className="catagories-text">{item.text}</p>
-            ))}
-
-        </div>
+         <p>Enter {operation_name}</p>
         <form className="fancy-form" onSubmit={handleRequest}>
             <input className="form-input" type="number" value={amount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)} />
             <input className="form-input" placeholder="Enter text to spending" type='text' name='text' onChange={(e) => setText(e.target.value)}/>
@@ -74,6 +69,7 @@ function Add_operation({url_get_categories_,url_post_operation_,operation_name})
 
             <button className='form-button'  type="submit">Save</button>
         </form>
+        </div>
         </>
     )
 
