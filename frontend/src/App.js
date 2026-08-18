@@ -10,23 +10,23 @@ import Categories from './pages/Categories';
 function App() {
   return (
     <BrowserRouter>
-   <nav className='navigation_bar'>
-    <a className='navigation_bar--element' href='/see_spendings'>See spengins</a>
-    <a className='navigation_bar--element' href='/see_incomes'>See incomes</a>
-    <a className='navigation_bar--element' href='/add'>Add</a>
-    <a className='navigation_bar--element' href='/categories'>Categories</a>
-    <a className='navigation_bar--element' href='/edit'>Edit categories</a>
-    <a className='navigation_bar--element' href='/stats'>Statistics</a>
-   </nav> 
-    <Routes>
-      <Route path="/see_spendings" element={<Show_spendings />} />
-      <Route path="/see_incomes" element={<Show_incomes />} />
+      <nav className='navigation_bar'>
+        <a className='navigation_bar--element' href='/see_spendings'>See spengins</a>
+        <a className='navigation_bar--element' href='/see_incomes'>See incomes</a>
+        <a className='navigation_bar--element' href='/add'>Add</a>
+        <a className='navigation_bar--element' href='/categories'>Categories</a>
+        <a className='navigation_bar--element' href='/edit'>Edit categories</a>
+        <a className='navigation_bar--element' href='/stats'>Statistics</a>
+      </nav>
+      <Routes>
+        <Route path="/see_spendings" element={<Show_spendings />} />
+        <Route path="/see_incomes" element={<Show_incomes />} />
         <Route path="/add" element={<Add />} />
         <Route path="/edit" element={<Edit />} />
         <Route path="/stats" element={<Stats />} />
         <Route path="/categories" element={<Categories />} />
-    </Routes>
-   </BrowserRouter>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
