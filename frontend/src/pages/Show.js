@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-function Show_({ get_url_act, get_url_cat, name }) {
+
+function Show({ get_url_act = '', get_url_cat = '', name = '' }) {
   const [actions, setActions] = useState([])
   const [categories, setCategories] = useState({})
   useEffect(() => {
@@ -17,7 +18,7 @@ function Show_({ get_url_act, get_url_cat, name }) {
         setCategories(catMap)
       })
 
-  }, [])
+  }, [get_url_act, get_url_cat])
 
 
   console.log(actions)
@@ -53,4 +54,4 @@ function Show_({ get_url_act, get_url_cat, name }) {
   );
 }
 
-export default Show_;
+export default Show;
