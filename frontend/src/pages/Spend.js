@@ -1,9 +1,5 @@
-// можно здесь отображать график трат за этот месяц, я хз как это сделать, наверно нужно сначала сделать бд
-// а потом уже из нее качать все и делать графики, даже может быть делать эти графики локально через библеотеку 
-// либо сделать просто загрузчик чтобы он выгружал просто траты
-// а через реакт приложение я думюа можно как это обрабатывать 
 import {useEffect,useState} from 'react'
-function Show({get_url_act,get_url_cat,name}){
+function Show_spendings({get_url_act='http://localhost:8000/fake_api/spending/' ,get_url_cat='http://localhost:8000/fake_api/category_spend/' ,name = 'income'}){
   const [actions,setActions] = useState([])
   const [categories,setCategories] = useState({})
   useEffect(() =>{
@@ -57,13 +53,4 @@ function Show({get_url_act,get_url_cat,name}){
   );
 }
 
-function Home(){
-  return(
-  <>
-      <Show get_url_act='http://localhost:8000/fake_api/spending/' get_url_cat='http://localhost:8000/fake_api/category_spend/' name = 'spending' />
-      <Show get_url_act='http://localhost:8000/fake_api/income/' get_url_cat='http://localhost:8000/fake_api/category_income/' name = 'income' />
-  </>
-  );
-}
-
-export default Home;
+export default Show_spendings;
