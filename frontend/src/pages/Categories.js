@@ -72,8 +72,8 @@ function Panel({url_categories,category_type}){
 function Categories(){
   return(
   <>
-  <Panel url_categories ='http://localhost:8000/fake_api/category_income/'  category_type='income' />
   <Panel url_categories ='http://localhost:8000/fake_api/category_spend/'  category_type='spendings' />
+  <Panel url_categories ='http://localhost:8000/fake_api/category_income/'  category_type='income' />
   </>
   );
 }

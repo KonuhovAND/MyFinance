@@ -65,6 +65,7 @@ function Panel({url_categories,category_type}){
     return(
         <>
       <div className='categories'>
+        <p>Change your {category_type} category</p>
         <form className='fancy-form' onSubmit={handleRequest}>
           <select className='form-select' value ={category} onChange={handleSelect}>
             {categories.map((item) =>(

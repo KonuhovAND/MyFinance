@@ -12,9 +12,9 @@ function App() {
    <nav className='navigation_bar'>
     <a className='navigation_bar--element' href='/'>Home</a>
     <a className='navigation_bar--element' href='/add'>Add</a>
-    <a className='navigation_bar--element' href='/edit'>Edit</a>
-    <a className='navigation_bar--element' href='/stats'>Statistics</a>
     <a className='navigation_bar--element' href='/categories'>Categories</a>
+    <a className='navigation_bar--element' href='/edit'>Edit categories</a>
+    <a className='navigation_bar--element' href='/stats'>Statistics</a>
    </nav> 
     <Routes>
       <Route path="/" element={<Home />} />
