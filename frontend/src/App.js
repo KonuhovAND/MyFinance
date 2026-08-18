@@ -2,10 +2,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Add from './pages/Add'
 import Edit from './pages/Edit.js'
 import EditCategories from './pages/EditCategories';
-import Show_spendings from './pages/Spend.js'
-import Show_incomes from './pages/Income.js'
 import Stats from './pages/Statictics'
 import Categories from './pages/Categories';
+import ShowIncomes from './pages/ShowIncomes';
+import ShowSpendings from './pages/ShowSpendings';
+
 
 
 function App() {
@@ -22,8 +23,8 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<Stats />} />
-        <Route path="/see_spendings" element={<Show_spendings />} />
-        <Route path="/see_incomes" element={<Show_incomes />} />
+        <Route path="/see_spendings" element={<ShowSpendings />} />
+        <Route path="/see_incomes" element={<ShowIncomes />} />
         <Route path="/add" element={<Add />} />
         <Route path="/edit" element={<Edit />} />
         <Route path="/edit_categories" element={<EditCategories />} />

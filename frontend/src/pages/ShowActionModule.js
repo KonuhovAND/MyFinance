@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-function Show({ get_url_act = '', get_url_cat = '', name = '' }) {
+function ShowActionModule({ get_url_act = '', get_url_cat = '', name = '' }) {
   const [actions, setActions] = useState([])
   const [categories, setCategories] = useState({})
   useEffect(() => {
@@ -54,4 +54,4 @@ function Show({ get_url_act = '', get_url_cat = '', name = '' }) {
   );
 }
 
-export default Show;
+export default ShowActionModule;
