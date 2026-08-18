@@ -54,7 +54,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    max-width: 350px;
+    max-width: 90%;
+    min-width:75%;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid var(--dark-background-color);
