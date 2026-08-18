@@ -4,17 +4,17 @@
   1. слайдер через который можно выбрать что мы хотим изменить
   2. кнопка удаленния 
  */
-import { useEffect, useState } from "react";
-function Panel({ get_url_act, get_url_cat, name }) {
-
-  return (
-    <>
-      <div>
-
-      </div>
-    </>
-  )
-}
+// import { useEffect, useState } from "react";
+// function Panel({ get_url_act, get_url_cat, name }) {
+//
+//   return (
+//     <>
+//       <div>
+//
+//       </div>
+//     </>
+//   )
+// }
 function Edit() {
 
 }

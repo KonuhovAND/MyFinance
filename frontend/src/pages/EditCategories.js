@@ -26,7 +26,7 @@ function Panel({ url_categories, category_type }) {
   let uri;
 
 
-  let loadCategories = () => {
+  let loadCategories = (url_categories) => {
     fetch(url_categories)
       .then((r) => r.json())
       .then((d) => {
@@ -34,7 +34,7 @@ function Panel({ url_categories, category_type }) {
         setCategory(d.objects[0].resource_uri)
       })
   };
-  useEffect(() => { loadCategories(); }, []);
+  useEffect(() => { loadCategories(url_categories); }, [url_categories]);
 
   const handleSelect = (e) => {
     uri = e.target.value;
@@ -45,19 +45,17 @@ function Panel({ url_categories, category_type }) {
   const handleRequest = (e) => {
 
     e.preventDefault();
-    let data = {
-      category: category,
-      text: text,
-    }
-
 
     fetch('http://localhost:8000' + category, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: JSON.stringify({
+        category: category,
+        text: text,
+      })
     })
-      .then((res) => {
-        loadCategories();
+      .then(() => {
+        loadCategories(url_categories);
         setCategory('');
       }).then(window.location.reload())
 
