@@ -40,6 +40,11 @@ function Panel({ get_url_act, get_url_cat, name }) {
     fetch('http://localhost:8000' + uri, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
+      // FIX: 
+      /*
+       Uncaught TypeError: JSON.stringify(...).then is not a function
+      at handleRequest (Edit.js:48:1
+       */
       body: JSON.stringify({
         amount: amount,
         category: category,
@@ -53,6 +58,7 @@ function Panel({ get_url_act, get_url_cat, name }) {
     }
     )
   }
+  //FIX: no auto loading in form
   return (
     <>
       <div>
