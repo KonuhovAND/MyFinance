@@ -1,5 +1,4 @@
- import { useState, useEffect } from "react";
-import { data } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 // {
 //   "meta": {
@@ -20,70 +19,71 @@ import { data } from "react-router-dom";
 //     }
 //   ]
 // }
-function Add_operation({url_get_categories_,url_post_operation_,operation_name}){
-    const [amount,setAmount] = useState('')
-    const [category,setCategory] = useState('')
-    const [categories,setCategories] = useState([])
-    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
-    const [text,setText] = useState('')
+function Add_operation({ url_get_categories_, url_post_operation_, operation_name }) {
+  const [amount, setAmount] = useState('')
+  const [category, setCategory] = useState('')
+  const [categories, setCategories] = useState([])
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [text, setText] = useState('')
 
 
 
-    useEffect(() =>{
-        fetch(url_get_categories_)
-        .then((r) => r.json())
-        .then((d) => {
-         setCategories(d.objects);
-         console.log(d,d.objects);
-         setCategory(d.objects[0].resource_uri);})
-    },[]);
-    const handleRequest = (e) =>{
-        e.preventDefault()
+  useEffect(() => {
+    fetch(url_get_categories_)
+      .then((r) => r.json())
+      .then((d) => {
+        setCategories(d.objects);
+        console.log(d, d.objects);
+        setCategory(d.objects[0].resource_uri);
+      })
+  }, []);
+  const handleRequest = (e) => {
+    e.preventDefault()
 
-        fetch(url_post_operation_,{
-            method: 'POST',
-            headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({
-              amount: amount,
-              category: category,
-              text: text,
-              created_at:date,
-        }
-)
-        }).then((r)=>{
-          if (r.ok){window.location.reload()}
+    fetch(url_post_operation_, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        amount: amount,
+        category: category,
+        text: text,
+        created_at: date,
+      }
+      )
+    }).then((r) => {
+      if (r.ok) { window.location.reload() }
 
-       }).catch(error=>console.error('Error:',error));
-    }
-    return(
-        <>
-        <div className="categories">
-         <p>Enter {operation_name}</p>
+    }).catch(error => console.error('Error:', error));
+  }
+  return (
+    <>
+      <div className="categories">
+        <p>Enter {operation_name}</p>
         <form className="fancy-form" onSubmit={handleRequest}>
-            <input className="form-input" type="number" value={amount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)} />
-            <input className="form-input" placeholder="Enter text to spending" type='text' name='text' onChange={(e) => setText(e.target.value)}/>
+          <input className="form-input" type="number" value={amount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)} />
+          <input className="form-input" placeholder="Enter text to spending" type='text' name='text' onChange={(e) => setText(e.target.value)} />
 
-            <input type="date" id="date" name="date" value={date} required onChange={(e) => setDate(e.target.value)}/>
+          <input type="date" id="date" name="date" value={date} required onChange={(e) => setDate(e.target.value)} />
 
-            <select className="form-select" value={category} onChange={(e) =>setCategory(e.target.value)}>{categories.map((cat) => (<option value={cat.resource_uri} key={cat.id}>{cat.text}</option>))}</select>
+          <select className="form-select" value={category} onChange={(e) => setCategory(e.target.value)}>{categories.map((cat) => (<option value={cat.resource_uri} key={cat.id}>{cat.text}</option>))}</select>
 
-            <button className='form-button'  type="submit">Save</button>
+          <button className='form-button' type="submit">Save</button>
         </form>
-        </div>
-        </>
-    )
+      </div>
+    </>
+  )
 
 
 }
 
 
-function App_add(){
-    return(
-        <>
-            <Add_operation url_get_categories_='http://localhost:8000/fake_api/category_spend/' url_post_operation_='http://localhost:8000/fake_api/spending/' operation_name='spending'/>
-            <Add_operation url_get_categories_='http://localhost:8000/fake_api/category_income/' url_post_operation_='http://localhost:8000/fake_api/income/' operation_name='income'/>
-        </>
-    );
+function App_add() {
+  return (
+    <>
+      <Add_operation url_get_categories_='http://localhost:8000/fake_api/category_spend/' url_post_operation_='http://localhost:8000/fake_api/spending/' operation_name='spending' />
+      <Add_operation url_get_categories_='http://localhost:8000/fake_api/category_income/' url_post_operation_='http://localhost:8000/fake_api/income/' operation_name='income' />
+    </>
+  );
 
 }
 
