@@ -38,9 +38,10 @@ function Panel({ url_categories, category_type }) {
 
   const handleSelect = (e) => {
     uri = e.target.value;
+    console.log(e.target.value)
     setCategory(uri);
     selected = categories.find((c) => c.resource_uri === uri)
-    if (selected) setText(selected.text)
+    // if (selected) setText(selected.text)
   }
   const handleRequest = (e) => {
 
@@ -66,6 +67,7 @@ function Panel({ url_categories, category_type }) {
         <p>Change your {category_type} category</p>
         <form className='fancy-form' onSubmit={handleRequest}>
           <select className='form-select' value={category} onChange={handleSelect}>
+            <option disabled selected>Select your {category_type}</option>
             {categories.map((item) => (
               <option value={item.resource_uri} key={item.resource_uri}>{item.text}</option>
             ))}

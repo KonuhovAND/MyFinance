@@ -65,7 +65,12 @@ function Add_operation({ url_get_categories_, url_post_operation_, operation_nam
 
           <input type="date" id="date" name="date" value={date} required onChange={(e) => setDate(e.target.value)} />
 
-          <select className="form-select" value={category} onChange={(e) => setCategory(e.target.value)}>{categories.map((cat) => (<option value={cat.resource_uri} key={cat.id}>{cat.text}</option>))}</select>
+          <select className="form-select" value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option disabled selected >Select your {operation_name}</option>
+            {categories.map((cat) =>
+              (<option value={cat.resource_uri} key={cat.id}>{cat.text}</option>))
+            }
+          </select>
 
           <button className='form-button' type="submit">Save</button>
         </form>

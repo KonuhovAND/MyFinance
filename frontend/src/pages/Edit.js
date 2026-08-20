@@ -5,16 +5,15 @@
   2. кнопка удаленния 
  */
 import { useEffect, useState } from "react";
-function Panel({ get_url_act, get_url_cat, name }) {
+function Panel({ get_url_act, get_url_cat, operation_name }) {
   const [categories, setCategories] = useState({})
-  const [actions, setActions] = useState([])
-  const [action, setAction] = useState([])
-  const [amount, setAmount] = useState(0)
+  const [operations, setOperations] = useState([])
+  const [operation, setOperation] = useState([])
+  const [amount, setAmount] = useState(new Number(null))
   const [category, setCategory] = useState('')
   const [text, setText] = useState('')
   const [date, setDate] = useState(new Date().toString().split('T')[0])
-  let uri;
-
+  const [uri, setUri] = useState('')
   useEffect(() => {
     fetch(get_url_cat)
       .then((r) => r.json())
@@ -29,47 +28,64 @@ function Panel({ get_url_act, get_url_cat, name }) {
     fetch(get_url_act)
       .then((r) => r.json())
       .then((d) => {
-        setActions(d.objects)
+        setOperations(d.objects)
 
       })
   }, [get_url_cat, get_url_act])
+  const handleSelect = (e) => {
+    fetch('http://localhost:8000' + e.target.value)
+      .then((r) => r.json())
+      .then((d) => {
+        setAmount(d.amount)
+        setText(d.text)
+        setCategory(categories[d.category])
+        setDate(d.created_at.toString().split('T')[0])
+        setUri(d.resource_uri)
+        console.log(date)
+        console.log(text, amount, d.id, category)
 
+      })
+
+  }
   const handleRequest = (e) => {
 
     e.preventDefault()
-    fetch('http://localhost:8000' + uri, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      // FIX: 
-      /*
-       Uncaught TypeError: JSON.stringify(...).then is not a function
-      at handleRequest (Edit.js:48:1
-       */
-      body: JSON.stringify({
-        amount: amount,
-        category: category,
-        text: text,
-        created_at: date,
-      })
-        .then((r) => {
-          if (r.ok) { window.location.reload() }
-        })
-        .catch(error => console.error(error))
-    }
+    fetch(get_url_act,
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        // FIX: 
+        /*
+         Uncaught TypeError: JSON.stringify(...).then is not a function
+        at handleRequest (Edit.js:48:1
+         */
+        body: JSON.stringify(
+          {
+            amount: amount,
+            category: category,
+            text: text,
+            created_at: date,
+          })
+      }
     )
+      .then((r) => {
+        if (r.ok) { window.location.reload() }
+      })
+      .catch(error => console.error(error))
   }
-  //FIX: no auto loading in form
+
   return (
     <>
       <div>
         <form className="fancy-form" onSubmit={handleRequest}>
-          <select>
-            {actions.map((item) => (
-              <option value={item.id} key={item.id} onChange={(e) => { setAction(e.target.value); uri = item.resource_uri }}>{item.created_at.toString().split('T')[0]} {item.text} {item.id} {categories[item.category]}</option>
+          <select onChange={handleSelect}>
+            <option disabled selected>Select your {operation_name}</option>
+            {operations.map((item) => (
+              <option value={item.resource_uri} key={item.id} >{item.created_at.toString().split('T')[0]} {item.text} {item.id} {categories[item.category]}</option>
             ))}
           </select>
-          <input className="form-input" type="number" value={action.amount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)} />
-          <input className="form-input" placeholder="Enter text to spending" type='text' name='text' onChange={(e) => setText(e.target.value)} />
+          <input className="form-input" type="number" value={amount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)} />
+          <input className="form-input" placeholder="Enter text to spending" value={text} type='text' name='text' onChange={(e) => setText(e.target.value)} />
 
           <input type="date" id="date" name="date" value={date} required onChange={(e) => setDate(e.target.value)} />
 
@@ -91,7 +107,7 @@ function Panel({ get_url_act, get_url_cat, name }) {
 function Edit() {
   return (
     <>
-      <Panel get_url_act='http://localhost:8000/fake_api/spending/' get_url_cat='http://localhost:8000/fake_api/category_spend/' name='spending' />
+      <Panel get_url_act='http://localhost:8000/fake_api/spending/' get_url_cat='http://localhost:8000/fake_api/category_spend/' operation_name='spending' />
     </>
   )
 }
