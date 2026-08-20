@@ -67,7 +67,7 @@ function Panel({ url_categories, category_type }) {
         <p>Change your {category_type} category</p>
         <form className='fancy-form' onSubmit={handleRequest}>
           <select className='form-select' value={category} onChange={handleSelect}>
-            <option disabled selected>Select your {category_type}</option>
+            <option disabled >Select your {category_type}</option>
             {categories.map((item) => (
               <option value={item.resource_uri} key={item.resource_uri}>{item.text}</option>
             ))}
