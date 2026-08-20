@@ -9,7 +9,7 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
   const [categories, setCategories] = useState({})
   const [operations, setOperations] = useState([])
   const [operation, setOperation] = useState([])
-  const [amount, setAmount] = useState(new Number(null))
+  const [amount, setAmount] = useState(new Number(0))
   const [category, setCategory] = useState('')
   const [text, setText] = useState('')
   const [date, setDate] = useState(new Date().toString().split('T')[0])
@@ -73,8 +73,8 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
     <>
       <div>
         <form className="fancy-form" onSubmit={handleRequest}>
-          <select onChange={handleSelect}>
-            <option disabled selected>Select your {operation_name}</option>
+          <select className="form-select" defaultValue='' onChange={handleSelect}>
+            <option value='' disabled >Select your {operation_name}</option>
             {operations.map((item) => (
               <option value={item.resource_uri} key={item.id} >{item.created_at.toString().split('T')[0]} {item.text} {item.id} {categories[item.category]}</option>
             ))}
@@ -85,6 +85,7 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
           <input type="date" id="date" name="date" value={date} required onChange={(e) => setDate(e.target.value)} />
 
           <select className="form-select" value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option value='' disabled >Select your {operation_name} category</option>
             {Object.entries(categories).map(([key, item]) => (
               <option key={key} value={key}>{item}</option>
             ))
