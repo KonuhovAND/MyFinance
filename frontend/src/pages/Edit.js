@@ -50,15 +50,10 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
   const handleRequest = (e) => {
 
     e.preventDefault()
-    fetch(get_url_act,
+    fetch('http://localhost:8000' + uri,
       {
-        method: 'PUT',
+        method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        // FIX: 
-        /*
-         Uncaught TypeError: JSON.stringify(...).then is not a function
-        at handleRequest (Edit.js:48:1
-         */
         body: JSON.stringify(
           {
             amount: amount,
