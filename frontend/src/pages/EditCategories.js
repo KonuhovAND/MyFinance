@@ -63,7 +63,7 @@ function Panel({ url_categories, category_type }) {
   }
   return (
     <>
-      <div className='categories'>
+      <div className='block'>
         <p>Change your {category_type} category</p>
         <form className='fancy-form' onSubmit={handleRequest}>
           <select className='form-select' value={category} onChange={handleSelect}>

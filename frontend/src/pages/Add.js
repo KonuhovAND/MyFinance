@@ -57,7 +57,7 @@ function Add_operation({ url_get_categories_, url_post_operation_, operation_nam
   }
   return (
     <>
-      <div className="categories">
+      <div className="block">
         <p>Enter {operation_name}</p>
         <form className="fancy-form" onSubmit={handleRequest}>
           <input className="form-input" type="number" value={amount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)} />

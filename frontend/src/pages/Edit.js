@@ -81,7 +81,7 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
 
   return (
     <>
-      <div>
+      <div className='block'>
         <form className="fancy-form" onSubmit={handleRequest}>
           <select className="form-select" defaultValue='' onChange={handleSelect}>
             <option value='' disabled >Select your {operation_name}</option>
@@ -104,7 +104,7 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
 
           <button className='form-button' type="submit">Save</button>
           
-          {/* <button className='form-button' onClick={handleDeleteRequest}>DELETE</button> */}
+          <button className='form-button-delete' onClick={handleDeleteRequest}>DELETE</button>
 
 
         </form>

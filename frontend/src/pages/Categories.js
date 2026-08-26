@@ -56,7 +56,7 @@ function Panel({url_categories,category_type}){
 
     return(
         <>
-        <div className="categories" >
+        <div className="block" >
             <p className="catagories-text">Available catagories to {category_type}</p>
             {categories.map((item) => (
                 <p key ={item.resource_uri}className="catagories-text">{item.text}</p>
