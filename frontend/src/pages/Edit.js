@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 function Panel({ get_url_act, get_url_cat, operation_name }) {
   const [categories, setCategories] = useState({})
   const [operations, setOperations] = useState([])
-  const [operation, setOperation] = useState([])
-  const [amount, setAmount] = useState(new Number(0))
+  const [amount, setAmount] = useState(0)
   const [category, setCategory] = useState('')
   const [text, setText] = useState('')
   const [date, setDate] = useState(new Date().toString().split('T')[0])
@@ -42,14 +41,17 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
 
   }
   const handleSelect = (e) => {
-    fetch('http://localhost:8000' + e.target.value)
+    fetch('http://localhost:8000'+ e.target.value)
       .then((r) => r.json())
       .then((d) => {
         setAmount(d.amount)
         setText(d.text)
-        setCategory(categories[d.category])
+        setCategory(d.category)
         setDate(d.created_at.toString().split('T')[0])
         setUri(d.resource_uri)
+        console.log(d)
+        console.log(d.resource_uri);
+        console.log(d.category)
 
       })
 
@@ -73,6 +75,7 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
       .then((r) => {
         if (r.ok) { window.location.reload() }
       })
+      .then((r) => console.log(r))
       .catch(error => console.error(error))
   }
 
@@ -101,7 +104,7 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
 
           <button className='form-button' type="submit">Save</button>
           
-          <button className='form-button' onClick={handleDeleteRequest}>DELETE</button>
+          {/* <button className='form-button' onClick={handleDeleteRequest}>DELETE</button> */}
 
 
         </form>
