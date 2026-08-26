@@ -14,8 +14,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 import app.api as api
 
 category_spendAPI = api.Category_spendAPI()
@@ -25,12 +26,11 @@ category_incomeAPI = api.Category_incomeAPI()
 incomeAPI = api.IncomeAPI()
 
 
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',include('app.urls')),
-    path('fake_api/',include(category_spendAPI.urls)),
-    path('fake_api/',include(spendingAPI.urls)),
-    path('fake_api/',include(category_incomeAPI.urls)),
-    path('fake_api/',include(incomeAPI.urls)),
+    path("admin/", admin.site.urls),
+    path("", include("app.urls")),
+    path("fake_api/", include(category_spendAPI.urls)),
+    path("fake_api/", include(spendingAPI.urls)),
+    path("fake_api/", include(category_incomeAPI.urls)),
+    path("fake_api/", include(incomeAPI.urls)),
 ]
