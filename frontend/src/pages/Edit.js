@@ -86,7 +86,7 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
           <select className="form-select" defaultValue='' onChange={handleSelect}>
             <option value='' disabled >Select your {operation_name}</option>
             {operations.map((item) => (
-              <option value={item.resource_uri} key={item.id} >{item.created_at.toString().split('T')[0]} {item.text} {item.id} {categories[item.category]}</option>
+              <option value={item.resource_uri} key={item.id} >Date: {item.created_at.toString().split('T')[0]} Text: {item.text}  Category:{categories[item.category]} id: {item.id}</option>
             ))}
           </select>
           <input className="form-input" type="number" value={amount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)} />
@@ -117,6 +117,7 @@ function Edit() {
   return (
     <>
       <Panel get_url_act='http://localhost:8000/fake_api/spending/' get_url_cat='http://localhost:8000/fake_api/category_spend/' operation_name='spending' />
+      <Panel get_url_act='http://localhost:8000/fake_api/income/' get_url_cat='http://localhost:8000/fake_api/category_income/' operation_name='income' />
     </>
   )
 }
