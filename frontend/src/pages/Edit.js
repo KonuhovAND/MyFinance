@@ -32,6 +32,22 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
 
       })
   }, [get_url_cat, get_url_act])
+  const handleDeleteRequest = (e) => {
+    fetch('http://localhost:8000' + uri,{
+      method:"DELETE",
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .then((r) =>r.json())
+    .then((d) =>{
+        if (d.ok){
+          window.location.reload
+        }
+        else{
+          console.log("Error in deleting writes")
+        }
+      })
+
+  }
   const handleSelect = (e) => {
     fetch('http://localhost:8000' + e.target.value)
       .then((r) => r.json())
