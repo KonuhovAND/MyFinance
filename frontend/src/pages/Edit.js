@@ -34,18 +34,11 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
   }, [get_url_cat, get_url_act])
   const handleDeleteRequest = (e) => {
     fetch('http://localhost:8000' + uri,{
-      method:"DELETE",
+      method:"delete",
       headers: { 'Content-Type': 'application/json' },
     })
-    .then((r) =>r.json())
-    .then((d) =>{
-        if (d.ok){
-          window.location.reload
-        }
-        else{
-          console.log("Error in deleting writes")
-        }
-      })
+    .then(window.location.reload())
+    .catch(Error => console.error(Error))
 
   }
   const handleSelect = (e) => {
@@ -57,8 +50,6 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
         setCategory(categories[d.category])
         setDate(d.created_at.toString().split('T')[0])
         setUri(d.resource_uri)
-        console.log(date)
-        console.log(text, amount, d.id, category)
 
       })
 
@@ -109,9 +100,12 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
           </select>
 
           <button className='form-button' type="submit">Save</button>
+          
+          <button className='form-button' onClick={handleDeleteRequest}>DELETE</button>
 
 
         </form>
+        
       </div>
     </>
   )
