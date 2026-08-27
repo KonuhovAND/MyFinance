@@ -34,7 +34,6 @@ function Add_operation({ url_get_categories_, url_post_operation_, operation_nam
       .then((d) => {
         setCategories(d.objects);
         console.log(d, d.objects);
-        setCategory(d.objects[0].resource_uri);
       })
   }, []);
   const handleRequest = (e) => {
@@ -66,7 +65,7 @@ function Add_operation({ url_get_categories_, url_post_operation_, operation_nam
           <input type="date" id="date" name="date" value={date} required onChange={(e) => setDate(e.target.value)} />
 
           <select className="form-select" value={category} onChange={(e) => setCategory(e.target.value)}>
-            <option disabled >Select your {operation_name}</option>
+            <option value='' disabled >Select your {operation_name}</option>
             {categories.map((cat) =>
               (<option value={cat.resource_uri} key={cat.id}>{cat.text}</option>))
             }
