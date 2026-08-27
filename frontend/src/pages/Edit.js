@@ -85,7 +85,8 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
           <select className="form-select" defaultValue='' onChange={handleSelect}>
             <option value='' disabled >Select your {operation_name}</option>
             {operations.map((item) => (
-              <option value={item.resource_uri} key={item.id} >Date: {item.created_at.toString().split('T')[0]} Text: {item.text}  Category:{categories[item.category]} id: {item.id}</option>
+              <option value={item.resource_uri} key={item.id} >{item.created_at.toString().split('T')[0]} {item.text.slice(0,10)
+              }  category:{categories[item.category]} </option>
             ))}
           </select>
           <input className="form-input" type="number" value={amount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)} />
