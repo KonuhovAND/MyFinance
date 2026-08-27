@@ -20,7 +20,6 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
         const catMap = {}
         d.objects.forEach((element) => {
           catMap[element.resource_uri] = element.text
-          catMap['id'] = element.id
         });
         setCategories(catMap)
       })
