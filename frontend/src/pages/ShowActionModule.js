@@ -21,7 +21,6 @@ function ShowActionModule({ get_url_act = '', get_url_cat = '', name = '' }) {
   }, [get_url_act, get_url_cat])
 
 
-  console.log(actions)
   return (
     <>
       <table className='mytable'>

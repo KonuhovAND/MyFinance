@@ -71,7 +71,6 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
       .then((r) => {
         if (r.ok) { window.location.reload() }
       })
-      .then((r) => console.log(r))
       .catch(error => console.error(error))
   }
 

@@ -38,7 +38,6 @@ function Panel({ url_categories, category_type }) {
 
   const handleSelect = (e) => {
     uri = e.target.value;
-    console.log(e.target.value)
     setCategory(uri);
     selected = categories.find((c) => c.resource_uri === uri)
     // if (selected) setText(selected.text)
