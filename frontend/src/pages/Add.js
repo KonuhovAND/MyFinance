@@ -33,7 +33,6 @@ function Add_operation({ url_get_categories_, url_post_operation_, operation_nam
       .then((r) => r.json())
       .then((d) => {
         setCategories(d.objects);
-        console.log(d, d.objects);
       })
   }, []);
   const handleRequest = (e) => {

@@ -34,13 +34,8 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
         });
         setCategories(catMap)
       })
-    fetch(url_get_operation)
-      .then((r) => r.json())
-      .then((d) => {
-        setOperations(d.objects)
 
-      })
-  }, [url_get_categories, url_get_operation])
+  }, [url_get_categories])
 
   const handleSelect = (e) =>{
     fetch("http://localhost:8000/fake_api/" + operation_name + `/?year=${year}&month=${month}` )
@@ -62,6 +57,7 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
   return(
   <>
   <div className="block">
+  <p>Enter {operation_name}</p>
   <form
     className="fancy-form"
     onSubmit={(e) => {
@@ -94,14 +90,15 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
       value={month}
       onChange={(e) => setMonth(e.target.value)}
     >
-      <option value="">Select month</option>
+
+      <option value=''>Select your {operation_name}</option>
 
       {Array.from({ length: 12 }, (_, index) => {
         const monthNumber = Number(index + 1);
 
         return (
           <option key={monthNumber} value={monthNumber}>
-            {monthNumber}
+            {monthDict[monthNumber]} 
           </option>
         );
       })}
@@ -114,7 +111,7 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
 
   {/* Results */}
   {Object.keys(categoriesSum).length > 0 && (
-    <table className="categories-table">
+    <table className="mytable">
       <thead>
         <tr>
           <th>Category</th>
@@ -124,7 +121,7 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
 
       <tbody>
         {Object.entries(categoriesSum).map(([category, amount]) => (
-          <tr key={category}>
+          <tr key={category} className='table-row-0'>
             <td>{category}</td>
             <td>{amount}</td>
           </tr>
