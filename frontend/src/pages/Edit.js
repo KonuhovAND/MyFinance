@@ -48,9 +48,6 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
         setCategory(d.category)
         setDate(d.created_at.toString().split('T')[0])
         setUri(d.resource_uri)
-        console.log(d)
-        console.log(d.resource_uri);
-        console.log(d.category)
 
       })
 

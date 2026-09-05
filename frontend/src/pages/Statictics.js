@@ -3,11 +3,12 @@
 // выбор, либо выгрузить сразу sql таблицу или json"ы
 import { useState, useEffect } from "react";
 function Panel({url_get_operation,url_get_categories,operation_name}){
-  const [operations,setOperations] = useState([])
-  const [categories,setCategories] = useState([])
-  const [categoriesSum,setCategoriesSum] = useState([])
+  const [categoriesSum,setCategoriesSum] = useState({})
   const [month,setMonth] = useState(0)
   const [year,setYear] = useState(2026)
+  const [categories, setCategories] = useState({})
+  const [operations, setOperations] = useState([])
+
   const monthDict = {
     1: "January",
     2: "February",
@@ -22,10 +23,122 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
     11: "November",
     12: "December",
   };
+ 
+  useEffect(() => {
+    fetch(url_get_categories)
+      .then((r) => r.json())
+      .then((d) => {
+        const catMap = {}
+        d.objects.forEach((element) => {
+          catMap[element.resource_uri] = element.text
+        });
+        setCategories(catMap)
+      })
+    fetch(url_get_operation)
+      .then((r) => r.json())
+      .then((d) => {
+        setOperations(d.objects)
+
+      })
+  }, [url_get_categories, url_get_operation])
+
+  const handleSelect = (e) =>{
+    fetch("http://localhost:8000/fake_api/" + operation_name + `/?year=${year}&month=${month}` )
+    .then((r)=>r.json())
+    .then((d) => {
+        setOperations(d.objects)
+        const sum = {}
+        for(const cat in categories){
+         sum[categories[cat]] = 0  
+        }
+        for(const operation of operations){
+          sum[categories[operation.category]] += Number(operation.amount) || 0
+        }
+        setCategoriesSum(sum)
+      })
+    .catch(Error => console.error(Error))
+    
+  }
+  return(
+  <>
+  <div className="block">
+  <form
+    className="fancy-form"
+    onSubmit={(e) => {
+      e.preventDefault();
+      handleSelect();
+    }}
+  >
+    {/* Year */}
+    <select
+      className="form-select"
+      value={year}
+      onChange={(e) => setYear(e.target.value)}
+    >
+      <option value="">Select year</option>
+
+      {Array.from({ length: 10 }, (_, index) => {
+        const selectedYear = new Date().getFullYear() - index;
+
+        return (
+          <option key={selectedYear} value={selectedYear}>
+            {selectedYear}
+          </option>
+        );
+      })}
+    </select>
+
+    {/* Month */}
+    <select
+      className="form-select"
+      value={month}
+      onChange={(e) => setMonth(e.target.value)}
+    >
+      <option value="">Select month</option>
+
+      {Array.from({ length: 12 }, (_, index) => {
+        const monthNumber = Number(index + 1);
+
+        return (
+          <option key={monthNumber} value={monthNumber}>
+            {monthNumber}
+          </option>
+        );
+      })}
+    </select>
+
+    <button className="form-button" type="submit">
+      Load data
+    </button>
+  </form>
+
+  {/* Results */}
+  {Object.keys(categoriesSum).length > 0 && (
+    <table className="categories-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {Object.entries(categoriesSum).map(([category, amount]) => (
+          <tr key={category}>
+            <td>{category}</td>
+            <td>{amount}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+</div>
+  </>
+  )
 }
 function Stats(){
   return(
-  <Panel/>
+  <Panel url_get_operation = 'http://localhost:8000/fake_api/spending/' url_get_categories='http://localhost:8000/fake_api/category_spend/' operation_name = 'spending' />
   )
 }
 export default Stats;
