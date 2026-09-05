@@ -135,7 +135,10 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
 }
 function Stats(){
   return(
-  <Panel url_get_operation = 'http://localhost:8000/fake_api/spending/' url_get_categories='http://localhost:8000/fake_api/category_spend/' operation_name = 'spending' />
+    <>  <Panel url_get_operation = 'http://localhost:8000/fake_api/spending/' url_get_categories='http://localhost:8000/fake_api/category_spend/' operation_name = 'spending'/>
+  <Panel url_get_operation = 'http://localhost:8000/fake_api/income/' url_get_categories='http://localhost:8000/fake_api/category_income/' operation_name = 'income' />
+  </>
+
   )
 }
 export default Stats;
