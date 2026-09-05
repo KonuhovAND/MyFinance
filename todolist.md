@@ -12,5 +12,4 @@ include:
   2. show graph like in first 1-7 day u spend on X Y amount,8-14 u spend on X Z amount 
 
 
-
 ## db download 
