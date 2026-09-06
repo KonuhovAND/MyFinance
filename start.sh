@@ -11,6 +11,7 @@ cleanup() {
 
   echo "Saving changes..."
   git add ~/django_react_spendings/db.sqlite3
+  git add ~/MyFinance/db.sqlite3
 
   if ! git diff --cached --quiet; then
     git commit -m "update in db.sqlite3"
