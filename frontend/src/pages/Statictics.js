@@ -47,7 +47,8 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
          sum[categories[cat]] = 0  
         }
         for(const operation of operations){
-          sum[categories[operation.category]] += Number(operation.amount) || 0
+          sum[categories[operation.category]] += Number(Math.round(operation.amount)) || 0
+          
         }
         setCategoriesSum(sum)
       })
@@ -105,7 +106,7 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
     </select>
 
     <button className="form-button" type="submit">
-      Load data
+      Double Click to Load data
     </button>
   </form>
 
