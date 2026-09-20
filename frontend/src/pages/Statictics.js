@@ -130,7 +130,7 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
           <tr key={category} className='table-row-0'>
             <td>{category}</td>
             <td>{amount}</td>
-            <td>{Math.round(amount/total * 100)}%</td>
+            <td>{Math.round(amount/total * 100) || 0}%</td>
           </tr>
         ))}
       </tbody>
