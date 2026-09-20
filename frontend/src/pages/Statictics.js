@@ -8,6 +8,7 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
   const [year,setYear] = useState(2026)
   const [categories, setCategories] = useState({})
   const [operations, setOperations] = useState([])
+  const [total,setTotal] = useState(0)
 
   const monthDict = {
     1: "January",
@@ -43,13 +44,16 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
     .then((d) => {
         setOperations(d.objects)
         const sum = {}
+        let sum_ = 0
+        setTotal(0)
         for(const cat in categories){
          sum[categories[cat]] = 0  
         }
         for(const operation of operations){
           sum[categories[operation.category]] += Number(Math.round(operation.amount)) || 0
-          
+          sum_+=Number(Math.round(operation.amount))
         }
+        setTotal(sum_)
         setCategoriesSum(sum)
       })
     .catch(Error => console.error(Error))
@@ -117,6 +121,7 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
         <tr>
           <th>Category</th>
           <th>Amount</th>
+          <th>Percent</th>
         </tr>
       </thead>
 
@@ -125,6 +130,7 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
           <tr key={category} className='table-row-0'>
             <td>{category}</td>
             <td>{amount}</td>
+            <td>{Math.round(amount/total) * 100}%</td>
           </tr>
         ))}
       </tbody>
