@@ -11,6 +11,7 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
   const [total,setTotal] = useState(0)
 
   const monthDict = {
+    0:"See for whole year",
     1: "January",
     2: "February",
     3: "March",
@@ -98,8 +99,8 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
 
       <option value=''>Select your {operation_name}</option>
 
-      {Array.from({ length: 12 }, (_, index) => {
-        const monthNumber = Number(index + 1);
+      {Array.from({ length: 13 }, (_, index) => {
+        const monthNumber = Number(index);
 
         return (
           <option key={monthNumber} value={monthNumber}>

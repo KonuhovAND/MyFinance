@@ -30,6 +30,7 @@ class SpendingAPI(ModelResource):
         authorization = Authorization()
         limit = 100
         max_limit = 500
+
     def get_object_list(self, request):
         queryset = super().get_object_list(request)
 
@@ -42,15 +43,13 @@ class SpendingAPI(ModelResource):
 
         # Require both values
         if not year_param or not month_param:
-            raise ValidationError(
-                "Both 'year' and 'month' are required."
-            )
+            raise ValidationError("Both 'year' and 'month' are required.")
 
         try:
             year = int(year_param)
             month = int(month_param)
 
-            if month < 1 or month > 12:
+            if month < 0 or month > 12:
                 raise ValueError
 
         except ValueError:
@@ -58,12 +57,15 @@ class SpendingAPI(ModelResource):
                 "'year' must be a valid year and 'month' must be between 1 and 12."
             )
 
-        start_date = date(year, month, 1)
-
         if month == 12:
+            start_date = date(year, month, 1)
             end_date = date(year + 1, 1, 1)
+        elif month == 0:
+            end_date = date(year, month=11, day=30)
+            start_date = date(year, month=1, day=1)
         else:
             end_date = date(year, month + 1, 1)
+            start_date = date(year, month, 1)
 
         return queryset.filter(
             created_at__gte=start_date,
@@ -94,6 +96,7 @@ class IncomeAPI(ModelResource):
         authorization = Authorization()
         limit = 100
         max_limit = 500
+
     def get_object_list(self, request):
         queryset = super().get_object_list(request)
 
@@ -106,9 +109,7 @@ class IncomeAPI(ModelResource):
 
         # Require both values
         if not year_param or not month_param:
-            raise ValidationError(
-                "Both 'year' and 'month' are required."
-            )
+            raise ValidationError("Both 'year' and 'month' are required.")
 
         try:
             year = int(year_param)
@@ -133,5 +134,3 @@ class IncomeAPI(ModelResource):
             created_at__gte=start_date,
             created_at__lt=end_date,
         )
-
-
