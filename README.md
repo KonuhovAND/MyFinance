@@ -20,3 +20,8 @@ bash start.sh
 ```bash
 cd MyFinance && bash start.sh
 ```
+>[!tip]
+>To clear db.sqlite3 pleze
+>google and find to specific command to do this
+> it probably `python manage.py flush` or `python manage.py reset app` (add uv in beginning if u use uv as package manager)
+> link - (click!)[https://stackoverflow.com/questions/6485106/what-is-the-easiest-way-to-clear-a-database-from-the-cli-with-manage-py-in-djang]
