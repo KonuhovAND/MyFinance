@@ -98,16 +98,23 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
     >
 
       <option value=''>Select your {operation_name}</option>
-
-      {Array.from({ length: 13 }, (_, index) => {
-        const monthNumber = Number(index);
-
-        return (
-          <option key={monthNumber} value={monthNumber}>
-            {monthDict[monthNumber]} 
+      {/* New version which not depends on determend amount */}
+      {Object.entries(monthDict).map(([monthNumber,name]) => (
+        <option key={monthNumber} value={monthNumber}>
+              {monthDict[monthNumber]} 
           </option>
-        );
-      })}
+      ))}
+
+      {/* Regular version which works but i change for better future feature addibility  */}
+      {/* {Array.from({ length: 13 }, (_, index) => { */}
+      {/*   const monthNumber = Number(index); */}
+      {/**/}
+      {/*   return ( */}
+      {/*     <option key={monthNumber} value={monthNumber}> */}
+      {/*       {monthDict[monthNumber]}  */}
+      {/*     </option> */}
+      {/*   ); */}
+      {/* })} */}
     </select>
 
     <button className="form-button" type="submit">
