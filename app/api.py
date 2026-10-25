@@ -7,6 +7,43 @@ from datetime import date
 from django.core.exceptions import ValidationError
 
 
+def checker(
+    year_param,
+    month_param,
+):
+    # No filters: return all spending records
+
+    # Require both values
+    if not year_param or not month_param:
+        raise ValidationError("Both 'year' and 'month' are required.")
+
+    try:
+        year = int(year_param)
+        month = int(month_param)
+
+        if month < -1 or month > 12:
+            raise ValueError
+
+    except ValueError:
+        raise ValidationError(
+            "'year' must be a valid year and 'month' must be between 1 and 12."
+        )
+    return year, month
+
+
+def end_start(year, month):
+    if month == 12:
+        start_date = date(year, month, 1)
+        end_date = date(year + 1, 1, 1)
+    elif month == 0:
+        end_date = date(year, month=11, day=30)
+        start_date = date(year, month=1, day=1)
+    else:
+        end_date = date(year, month + 1, 1)
+        start_date = date(year, month, 1)
+    return start_date, end_date
+
+
 class Category_spendAPI(ModelResource):
     class Meta:
         queryset = Category_spend.objects.all()
@@ -40,33 +77,8 @@ class SpendingAPI(ModelResource):
         # No filters: return all spending records
         if not year_param and not month_param:
             return queryset
-
-        # Require both values
-        if not year_param or not month_param:
-            raise ValidationError("Both 'year' and 'month' are required.")
-
-        try:
-            year = int(year_param)
-            month = int(month_param)
-
-            if month < 0 or month > 13:
-                raise ValueError
-
-        except ValueError:
-            raise ValidationError(
-                "'year' must be a valid year and 'month' must be between 1 and 12."
-            )
-
-        if month == 12:
-            start_date = date(year, month, 1)
-            end_date = date(year + 1, 1, 1)
-        elif month == 0:
-            end_date = date(year, month=11, day=31)
-            start_date = date(year, month=1, day=1)
-        else:
-            end_date = date(year, month + 1, 1)
-            start_date = date(year, month, 1)
-
+        year, month = checker(year_param, month_param)
+        start_date, end_date = end_start(year, month)
         return queryset.filter(
             created_at__gte=start_date,
             created_at__lt=end_date,
@@ -102,37 +114,11 @@ class IncomeAPI(ModelResource):
 
         year_param = request.GET.get("year")
         month_param = request.GET.get("month")
-
-        # No filters: return all spending records
         if not year_param and not month_param:
             return queryset
 
-        # Require both values
-        if not year_param or not month_param:
-            raise ValidationError("Both 'year' and 'month' are required.")
-
-        try:
-            year = int(year_param)
-            month = int(month_param)
-
-            if month < 0 or month > 12:
-                raise ValueError
-
-        except ValueError:
-            raise ValidationError(
-                "'year' must be a valid year and 'month' must be between 1 and 12."
-            )
-
-        if month == 12:
-            start_date = date(year, month, 1)
-            end_date = date(year + 1, 1, 1)
-        elif month == 0:
-            end_date = date(year, month=11, day=31)
-            start_date = date(year, month=1, day=1)
-        else:
-            end_date = date(year, month + 1, 1)
-            start_date = date(year, month, 1)
-
+        year, month = checker(year_param, month_param)
+        start_date, end_date = end_start(year, month)
         return queryset.filter(
             created_at__gte=start_date,
             created_at__lt=end_date,

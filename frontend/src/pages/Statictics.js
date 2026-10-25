@@ -44,6 +44,7 @@ function Panel({url_get_operation,url_get_categories,operation_name}){
     .then((r)=>r.json())
     .then((d) => {
         setOperations(d.objects)
+        console.log(d.objects)
         const sum = {}
         let sum_ = 0
         setTotal(0)
