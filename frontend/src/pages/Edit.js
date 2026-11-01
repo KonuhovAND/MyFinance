@@ -82,7 +82,7 @@ function Panel({ get_url_act, get_url_cat, operation_name }) {
             <option value='' disabled >Select your {operation_name}</option>
             {operations.map((item) => (
               <option value={item.resource_uri} key={item.id} >{item.created_at.toString().split('T')[0]} {item.text.slice(0,10)
-              }  category:{categories[item.category]} </option>
+              }  category:{categories[item.category]} amount: {item.amount} </option>
             ))}
           </select>
           <input className="form-input" type="number" value={amount} placeholder="Amount" onChange={(e) => setAmount(e.target.value)} />
